@@ -11,6 +11,14 @@
   text-align: center;
 }
 
+.bt-9{
+    padding-top: 9px;
+}
+
 .bp-9{
     padding-bottom: 9px;
+}
+
+.form_type{
+   text-transform: capitalize;
 }

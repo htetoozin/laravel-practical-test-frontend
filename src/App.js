@@ -14,6 +14,7 @@ import {
 import "./App.css";
 
 function App() {
+  const [formTitle, setFormTitle] = useState("Untitled Form");
   const [selectType, setSelectType] = useState("text");
   const [formFields, setFormFields] = useState([
     { type: selectType, title: "", required: false },
@@ -42,7 +43,7 @@ function App() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(formFields);
+    console.log(formTitle, formFields);
   };
 
   return (
@@ -50,7 +51,16 @@ function App() {
       <div className="mt-10 col-sm-12 col-md-12">
         <Card>
           <Card.Header className="card_header">
-            <h4>React Dynamic Form</h4>
+            <Col md="3" lg="3">
+              <InputGroup>
+                <Form.Control
+                  placeholder="Untitled form"
+                  aria-describedby="basic-addon1"
+                  value={formTitle}
+                  onChange={(e) => setFormTitle(e.target.value)}
+                />
+              </InputGroup>
+            </Col>
           </Card.Header>
           <Card.Body>
             <div className="row mb-3 p-b-10 border-bottom border-color border-info bp-9">
@@ -74,6 +84,12 @@ function App() {
             <form onSubmit={submitHandler}>
               {formFields.map((form, index) => (
                 <div className="row" key={index}>
+                  <Col md="1" lg="1">
+                    <Button variant="secondary">
+                      <span className="form_type">{form.type}</span>
+                    </Button>
+                  </Col>
+
                   <Col md="5" lg="5" className="mb-3">
                     <InputGroup>
                       <Form.Control
@@ -107,13 +123,17 @@ function App() {
                   </Col>
                 </div>
               ))}
-              <Button variant="primary" type="submit">
-                <FontAwesomeIcon icon={faPaperPlane} />
-                <span className="ml-10">Submit</span>
-              </Button>
+              <div className="border-top border-color border-info bt-9">
+                <Button variant="primary" type="submit">
+                  <FontAwesomeIcon icon={faPaperPlane} />
+                  <span className="ml-10">Submit</span>
+                </Button>
+              </div>
             </form>
           </Card.Body>
-          {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
+          <Card.Footer className="text-muted text-center">
+            Developed by HOZ
+          </Card.Footer>
         </Card>
       </div>
     </Container>
