@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -69,6 +69,13 @@ const Login = () => {
                     <Button type="submit" variant="primary">
                       Login
                     </Button>
+                    <p className="register">
+                      {" "}
+                      Don't have an account?
+                      <Link to={`/register`} className="link_danger">
+                        Register
+                      </Link>
+                    </p>
                   </Form>
                 </Card.Body>
               </Card>

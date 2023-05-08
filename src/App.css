@@ -26,3 +26,17 @@
 .card_title{
   color: red;
 }
+
+.register{
+  margin-top: 10px;
+  font-weight: 700;
+  color: #4F4F4F;
+}
+
+.link_danger{
+  font-style: italic;
+  margin-left: 3px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #dc4c64;
+}
