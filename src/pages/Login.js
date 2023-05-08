@@ -4,8 +4,14 @@ import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
+import { useNavigate } from "react-router-dom";
+import API from "../network/API";
+import axios from "axios";
+import { API_HOST, API_VERSION } from "../network/domain";
 
 const Login = () => {
+  let navigate = useNavigate();
+
   const [payload, setPayload] = useState({
     email: "",
     password: "",
@@ -16,9 +22,34 @@ const Login = () => {
     setPayload({ ...payload, [event.target.id]: event.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("payload ", payload);
+
+    const url = `${API.login}`;
+
+    try {
+      const response = await axios.post(
+        `${API_HOST}/api/${API_VERSION}/${url}`,
+        payload
+      );
+
+      const { data } = response;
+
+      const { user, token } = data;
+
+      localStorage.setItem("token", token);
+      setPayload({
+        email: "",
+        password: "",
+      });
+      navigate("/form");
+    } catch (error) {
+      const { response } = error;
+
+      setErrors({
+        password: response.data.error,
+      });
+    }
   };
   return (
     <div className="container">
@@ -60,17 +91,17 @@ const Login = () => {
                         onChange={handleChange}
                         required
                       />
+
                       {errors.password && (
-                        <span id="password" className="text-danger">
+                        <Form.Control.Feedback type="invalid">
                           {errors.password}
-                        </span>
+                        </Form.Control.Feedback>
                       )}
                     </InputGroup>
                     <Button type="submit" variant="primary">
                       Login
                     </Button>
                     <p className="register">
-                      {" "}
                       Don't have an account?
                       <Link to={`/register`} className="link_danger">
                         Register

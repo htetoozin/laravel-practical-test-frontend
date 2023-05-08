@@ -40,3 +40,7 @@
   text-decoration: none;
   color: #dc4c64;
 }
+
+.invalid-feedback{
+  display: block !important;
+}
