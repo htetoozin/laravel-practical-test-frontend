@@ -5,8 +5,9 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
 
-const Login = () => {
+const Register = () => {
   const [payload, setPayload] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -18,6 +19,10 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (payload.password !== payload.confirm_password) {
+      alert("Your confirmation password doesn't match");
+      return;
+    }
     console.log("payload ", payload);
   };
   return (
@@ -28,8 +33,26 @@ const Login = () => {
             <div className="card-body d-flex flex-column align-items-center">
               <Card className="col-md-12 row justify-content-center">
                 <Card.Body>
-                  <Card.Title className="card_title">Login</Card.Title>
+                  <Card.Title className="card_title">Register</Card.Title>
                   <Form onSubmit={handleSubmit}>
+                    <InputGroup className="mb-4 mt-4">
+                      <InputGroup.Text id="inputGroup-sizing-default">
+                        Name
+                      </InputGroup.Text>
+                      <Form.Control
+                        type="name"
+                        aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default"
+                        id="name"
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors.name && (
+                        <span id="name" className="text-danger">
+                          {errors.name}
+                        </span>
+                      )}
+                    </InputGroup>
                     <InputGroup className="mb-4 mt-4">
                       <InputGroup.Text id="inputGroup-sizing-default">
                         Email
@@ -48,7 +71,7 @@ const Login = () => {
                         </span>
                       )}
                     </InputGroup>
-                    <InputGroup className="mb-5">
+                    <InputGroup className="mb-4">
                       <InputGroup.Text id="inputGroup-sizing-default">
                         Password
                       </InputGroup.Text>
@@ -66,8 +89,26 @@ const Login = () => {
                         </span>
                       )}
                     </InputGroup>
+                    <InputGroup className="mb-5">
+                      <InputGroup.Text id="inputGroup-sizing-default">
+                        Confirm Password
+                      </InputGroup.Text>
+                      <Form.Control
+                        type="password"
+                        aria-label="Default"
+                        aria-describedby="inputGroup-sizing-default"
+                        id="confirm_password"
+                        onChange={handleChange}
+                        required
+                      />
+                      {errors.confirm_password && (
+                        <span id="confirm_password" className="text-danger">
+                          {errors.confirm_password}
+                        </span>
+                      )}
+                    </InputGroup>
                     <Button type="submit" variant="primary">
-                      Login
+                      Register
                     </Button>
                   </Form>
                 </Card.Body>
@@ -80,4 +121,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

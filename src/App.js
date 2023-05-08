@@ -13,6 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./App.css";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   const [formTitle, setFormTitle] = useState("Untitled Form");
@@ -48,7 +49,8 @@ function App() {
   };
 
   return (
-    <Login />
+    <Register />
+    // <Login />
     // <Container>
     //   <div className="mt-10 col-sm-12 col-md-12">
     //     <Card>
