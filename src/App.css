@@ -22,3 +22,7 @@
 .form_type{
    text-transform: capitalize;
 }
+
+.login_title{
+  color: red;
+}
