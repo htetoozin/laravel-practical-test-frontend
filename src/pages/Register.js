@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -148,6 +148,12 @@ const Register = () => {
                     <Button type="submit" variant="primary">
                       Register
                     </Button>
+                    <p className="register">
+                      Already have an account?
+                      <Link to="/" className="link_danger">
+                        Login
+                      </Link>
+                    </p>
                   </Form>
                 </Card.Body>
               </Card>

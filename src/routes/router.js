@@ -1,28 +1,36 @@
-import React, { useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import { useRoutes } from "react-router-dom";
 import { Login, Register } from "../routes/auth";
 import { Form } from "./form";
-const Router = (props) => {
-  let token = JSON.parse(localStorage.getItem("token"));
-  console.log(token, "token");
+import Auth from "../components/auth/Auth";
 
-  return (
-    <>
-      <Routes>
-        {/* {!token ? ( */}
-        <>
-          {/* <Route path="/" name="Login Page" element={<Login />} />
-          <Route path="/register" name="Register Page" element={<Register />} /> */}
-          <Route path="/form" name="Form" element={<Form />} />
+const Router = () => {
+  let routes = useRoutes([
+    {
+      element: <Login />,
+      path: "/",
+    },
+    {
+      element: <Register />,
+      path: "/register",
+    },
+    {
+      element: <Login />,
+      path: "*",
+    },
+    {
+      element: <Auth />,
+      path: "",
+      children: [
+        {
+          element: <Form />,
+          path: "/form",
+        },
+      ],
+    },
+  ]);
 
-          {/* <Route path="*" name="Login Page" element={<Navigate to="/" />} /> */}
-        </>
-        {/* ) : ( // <p>Demo</p>
-        <Route path="/form" name="Form" element={<Form />} />
-        )} // */}
-      </Routes>
-    </>
-  );
+  return routes;
 };
 
 export default Router;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -29,14 +29,14 @@ const DynamicForm = () => {
 
   let navigate = useNavigate();
 
-  // const token = localStorage.getItem("token");
-  const token = "49|olxMHvnYRy0htTrZHElIkiHaHr7Bh7ce9cOKX5FR";
-  // console.log(token, "token");
-  // if (!token) {
-  //   console.log("redirect");
-  //   navigate("/");
-  //   return;
-  // }
+  const token = localStorage.getItem("token");
+  // const token = "49|olxMHvnYRy0htTrZHElIkiHaHr7Bh7ce9cOKX5FR";
+  // console.log(token, "form token");
+  if (!token) {
+    console.log("token not found");
+    navigate("/");
+    return false;
+  }
 
   const addRowHandler = () => {
     const row = {
