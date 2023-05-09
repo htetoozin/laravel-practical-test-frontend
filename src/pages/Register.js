@@ -4,12 +4,18 @@ import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
+import { useNavigate } from "react-router-dom";
+import API from "../network/API";
+import axios from "axios";
+import { API_HOST, API_VERSION } from "../network/domain";
 
 const Register = () => {
+  let navigate = useNavigate();
   const [payload, setPayload] = useState({
     name: "",
     email: "",
     password: "",
+    confirm_password: "",
   });
   const [errors, setErrors] = useState("");
 
@@ -17,13 +23,43 @@ const Register = () => {
     setPayload({ ...payload, [event.target.id]: event.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (payload.password !== payload.confirm_password) {
-      alert("Your confirmation password doesn't match");
+      setErrors({
+        confirm_password: "Your confirmation password doesn't match",
+      });
       return;
     }
-    console.log("payload ", payload);
+
+    e.preventDefault();
+
+    const url = `${API.register}`;
+
+    try {
+      const response = await axios.post(
+        `${API_HOST}/api/${API_VERSION}/${url}`,
+        payload
+      );
+
+      const { data } = response;
+
+      const { user, token } = data;
+
+      localStorage.setItem("token", token);
+      setPayload({
+        name: "",
+        email: "",
+        password: "",
+      });
+      navigate("/form");
+    } catch (error) {
+      const { response } = error;
+
+      setErrors({
+        email: response.data.error,
+      });
+    }
   };
   return (
     <div className="container">
@@ -48,9 +84,9 @@ const Register = () => {
                         required
                       />
                       {errors.name && (
-                        <span id="name" className="text-danger">
+                        <Form.Control.Feedback type="invalid">
                           {errors.name}
-                        </span>
+                        </Form.Control.Feedback>
                       )}
                     </InputGroup>
                     <InputGroup className="mb-4 mt-4">
@@ -66,9 +102,9 @@ const Register = () => {
                         required
                       />
                       {errors.email && (
-                        <span id="email" className="text-danger">
+                        <Form.Control.Feedback type="invalid">
                           {errors.email}
-                        </span>
+                        </Form.Control.Feedback>
                       )}
                     </InputGroup>
                     <InputGroup className="mb-4">
@@ -81,12 +117,13 @@ const Register = () => {
                         aria-describedby="inputGroup-sizing-default"
                         id="password"
                         onChange={handleChange}
+                        minLength="8"
                         required
                       />
                       {errors.password && (
-                        <span id="password" className="text-danger">
+                        <Form.Control.Feedback type="invalid">
                           {errors.password}
-                        </span>
+                        </Form.Control.Feedback>
                       )}
                     </InputGroup>
                     <InputGroup className="mb-5">
@@ -99,12 +136,13 @@ const Register = () => {
                         aria-describedby="inputGroup-sizing-default"
                         id="confirm_password"
                         onChange={handleChange}
+                        minLength="8"
                         required
                       />
                       {errors.confirm_password && (
-                        <span id="confirm_password" className="text-danger">
+                        <Form.Control.Feedback type="invalid">
                           {errors.confirm_password}
-                        </span>
+                        </Form.Control.Feedback>
                       )}
                     </InputGroup>
                     <Button type="submit" variant="primary">
