@@ -46,7 +46,7 @@ const Register = () => {
 
       const { user, token } = data;
 
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", JSON.stringify(token));
       setPayload({
         name: "",
         email: "",

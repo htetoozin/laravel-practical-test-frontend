@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Login, Register } from "../routes/auth";
+import { Form } from "./form";
 const Router = (props) => {
-  //   const auth = useSelector((state) => state.auth);
+  let token = JSON.parse(localStorage.getItem("token"));
+  console.log(token, "token");
 
-  //Logout when token is expired
-  //   const expiredTime = auth.expired_at;
-  //   // console.log('current time ', Date.now(), expiredTime * 1000)
-
-  //   if (expiredTime * 1000 < Date.now()) {
-  //     // console.log('expired ')
-  //     localStorage.removeItem("user");
-  //   }
   return (
     <>
       <Routes>
-        <Route path="/" name="Login Page" element={<Login />} />
-        <Route path="/register" name="Register Page" element={<Register />} />
+        {/* {!token ? ( */}
+        <>
+          {/* <Route path="/" name="Login Page" element={<Login />} />
+          <Route path="/register" name="Register Page" element={<Register />} /> */}
+          <Route path="/form" name="Form" element={<Form />} />
+
+          {/* <Route path="*" name="Login Page" element={<Navigate to="/" />} /> */}
+        </>
+        {/* ) : ( // <p>Demo</p>
+        <Route path="/form" name="Form" element={<Form />} />
+        )} // */}
       </Routes>
     </>
   );

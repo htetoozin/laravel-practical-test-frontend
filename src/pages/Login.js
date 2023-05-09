@@ -37,7 +37,7 @@ const Login = () => {
 
       const { user, token } = data;
 
-      localStorage.setItem("token", token);
+      localStorage.setItem("token", JSON.stringify(token));
       setPayload({
         email: "",
         password: "",
