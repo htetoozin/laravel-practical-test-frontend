@@ -63,7 +63,6 @@ const DynamicForm = () => {
     e.preventDefault();
 
     const url = `${API.createForm}`;
-    console.log(formTitle, formFields);
 
     try {
       const response = await axios.post(
@@ -89,7 +88,7 @@ const DynamicForm = () => {
     } catch (error) {
       const { response } = error;
 
-      setError(response.data.error);
+      setError(response.data.message);
     }
   };
 

@@ -37,7 +37,7 @@ const Login = () => {
 
       const { user, token } = data;
 
-      localStorage.setItem("token", JSON.stringify(token));
+      localStorage.setItem("token", token);
       setPayload({
         email: "",
         password: "",
@@ -47,7 +47,7 @@ const Login = () => {
       const { response } = error;
 
       setErrors({
-        password: response.data.error,
+        password: response.data.message,
       });
     }
   };
